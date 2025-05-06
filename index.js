@@ -1,4 +1,10 @@
 const express = require("express");
+
+// We import the body-parser package.
+// This package contains middleware that can handle
+// the parsing of many different kinds of data,
+// making it easier to work with data in routes that
+// accept data from the client (POST, PATCH).
 const bodyParser = require("body-parser");
 
 const users = require("./routes/users");
@@ -10,6 +16,9 @@ const app = express();
 const port = 3000;
 
 // Parsing Middleware
+// We use the body-parser middleware FIRST so that
+// we have access to the parsed data within our routes.
+// The parsed data will be located in "req.body".
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json({ extended: true }));
 
@@ -31,13 +40,14 @@ ${time.toLocaleTimeString()}: Received a ${req.method} request to ${req.url}.`
 // Valid API Keys.
 apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
 
+/** http://localhost:3000/api?api-key=perscholas **/
 // New middleware to check for API keys!
 // Note that if the key is not verified,
 // we do not call next(); this is the end.
 // This is why we attached the /api/ prefix
 // to our routing at the beginning!
 app.use("/api", function (req, res, next) {
-  var key = req.query["api-key"];
+  let key = req.query["api-key"];
 
   // Check for the absence of a key.
   if (!key) next(error(400, "API Key Required"));

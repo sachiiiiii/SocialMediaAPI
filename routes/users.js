@@ -18,6 +18,9 @@ router
     res.json({ users, links });
   })
   .post((req, res, next) => {
+    // Within the POST request route, we create a new
+    // user with the data given by the client.
+    // We should also do some more robust validation here
     if (req.body.name && req.body.username && req.body.email) {
       if (users.find((u) => u.username == req.body.username)) {
         next(error(409, "Username Already Taken"));
@@ -57,6 +60,8 @@ router
     else next();
   })
   .patch((req, res, next) => {
+    // Within the PATCH request route, we allow the client
+    // to make changes to an existing user in the database.
     const user = users.find((u, i) => {
       if (u.id == req.params.id) {
         for (const key in req.body) {
@@ -70,6 +75,7 @@ router
     else next();
   })
   .delete((req, res, next) => {
+    // The DELETE request route simply removes a resource.
     const user = users.find((u, i) => {
       if (u.id == req.params.id) {
         users.splice(i, 1);
