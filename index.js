@@ -140,12 +140,25 @@ app.get("/api", (req, res) => {
         type: "DELETE",
       },
       {
-        href: "/api/posts/:id/comments",
+        href: "/posts/:id/comments",
         rel: "post-comments",
+        type: "GET",
+      },
+      {
+        href: "/users/:id/comments",
+        rel: "user-comments",
         type: "GET",
       },
     ],
   });
+});
+
+// GET /users/:id/comments/
+// Retrieve comments made by a specific user
+app.get("/users/:id/comments", (req, res, next) => {
+  const userId = parseInt(req.params.id);
+  const userComments = comments.filter((comment) => comment.userId === userId);
+  res.json(userComments);
 });
 
 // 404 Middleware
