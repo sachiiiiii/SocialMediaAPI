@@ -11,6 +11,8 @@ const users = require("./routes/users");
 const posts = require("./routes/posts");
 const comments = require("./routes/comments"); // Import the new comments route
 
+const commentsData = require("./data/comments");
+
 const error = require("./utilities/error");
 
 const app = express();
@@ -153,11 +155,19 @@ app.get("/api", (req, res) => {
   });
 });
 
+// GET "/posts/:id/comments"
+// Retrieve all comments made on a specific post
+app.get("/posts/:id/comments", (req, res, next) => {
+  const postId = parseInt(req.params.id);
+  const postComments = commentsData.filter((comment) => comment.postId === postId);
+  res.json(postComments);
+});
+
 // GET /users/:id/comments/
 // Retrieve comments made by a specific user
 app.get("/users/:id/comments", (req, res, next) => {
   const userId = parseInt(req.params.id);
-  const userComments = comments.filter((comment) => comment.userId === userId);
+  const userComments = commentsData.filter((comment) => comment.userId === userId);
   res.json(userComments);
 });
 
