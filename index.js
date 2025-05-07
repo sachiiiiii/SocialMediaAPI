@@ -111,11 +111,11 @@ app.get("/api", (req, res) => {
         rel: "posts",
         type: "POST",
       },
-      // {
-      //   href: "/api/posts?userId=<VALUE>",
-      //   rel: "posts-by-user",
-      //   type: "GET",
-      // },
+      {
+        href: "/api/posts?userId=<VALUE>",
+        rel: "posts-by-user",
+        type: "GET",
+      },
       {
         href: "/comments",
         rel: "comments",
@@ -230,6 +230,7 @@ app.use((req, res, next) => {
 // at once in a single location, which is important for
 // scalability and maintainability.
 app.use((err, req, res, next) => {
+  console.log(err);
   res.status(err.status || 500);
   res.json({ error: err.message });
 });
