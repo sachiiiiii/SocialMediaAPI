@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 
 const users = require("./routes/users");
 const posts = require("./routes/posts");
+const comments = require("./routes/comments"); // Import the new comments route
 
 const error = require("./utilities/error");
 
@@ -48,7 +49,6 @@ apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
 // to our routing at the beginning!
 app.use("/api", function (req, res, next) {
   let key = req.query["api-key"];
-
   // Check for the absence of a key.
   if (!key) next(error(400, "API Key Required"));
 
@@ -63,6 +63,8 @@ app.use("/api", function (req, res, next) {
 // Use our Routes
 app.use("/api/users", users);
 app.use("/api/posts", posts);
+app.use("/comments", comments); // Use the new comments route
+
 
 // Adding some HATEOAS links.
 app.get("/", (req, res) => {
