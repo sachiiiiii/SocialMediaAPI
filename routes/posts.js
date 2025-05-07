@@ -7,6 +7,16 @@ const error = require("../utilities/error");
 router
   .route("/")
   .get((req, res) => {
+    // GET /posts?userId=<VALUE>
+    // Retrieve all posts by a user with the specified postId.
+    // If userId query parameter present, filter posts
+    // if (req.query.userId) {
+    //   const userId = parseInt(req.query.userId);
+    //   console.log(req.query.userId)
+    //   const userPosts = posts.filter((post) => post.userId === userId);
+    //   return res.json(userPosts);
+    // }
+    // Otherwise, return all posts
     const links = [
       {
         href: "posts/:id",
@@ -82,4 +92,12 @@ router
     else next();
   });
 
+// GET /posts/:id/comments
+// Retrieve all comments made on a specific post
+router
+  .get("/:id/comments", (req, res, next) => {
+    const postId = parseInt(req.params.id);
+    const postComments = comments.filter((comment) => comment.postId === postId);
+    res.json(postComments);
+  });
 module.exports = router;
