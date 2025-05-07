@@ -142,6 +142,16 @@ app.get("/api", (req, res) => {
         type: "DELETE",
       },
       {
+        href: "/comments?userId=<VALUE>",
+        rel: "comments-by-user",
+        type: "GET",
+      },
+      {
+        href: "/comments?postId=<VALUE>",
+        rel: "comments-by-post",
+        type: "GET",
+      },
+      {
         href: "/posts/:id/comments",
         rel: "post-comments",
         type: "GET",

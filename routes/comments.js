@@ -20,12 +20,17 @@ router
     .route("/")
     .get((req, res) => {
         // Handle userId and postId query parameters
+        
+        // GET /comments?userId=<VALUE>
+        // Retrieve comments made by a specific user
         if (req.query.userId) {
             const userComments = comments.filter(
                 (c) => c.userId === parseInt(req.query.userId)
             );
             return res.json(userComments);
         }
+        // GET /comments?postId=<VALUE>
+        // Retrieve comments made on a specific post
         if (req.query.postId) {
             const postComments = comments.filter(
                 (c) => c.postId === parseInt(req.query.postId)
@@ -97,5 +102,7 @@ router
             next(error(404, "Comment not found"));
         }
     });
+
+
 
 module.exports = router;
