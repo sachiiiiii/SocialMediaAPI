@@ -54,5 +54,6 @@ It is for managing users, posts, and comments.
         - DELETE /comments/:id
             - Used to delete a comment with the specified id.
 
+[Project Documentation](https://www.canva.com/design/DAGmy6Vp_xY/MlM0zPVliJuI3cW85bacRA/view?utm_content=DAGmy6Vp_xY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hb99c4b34c1)
 
 * This is a Node.js project.
