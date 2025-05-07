@@ -89,7 +89,7 @@ router
   });
 
 // GET /:id/posts
-// Retrieve all posts by a user with the specified id.
+// Retrieve all posts by a specific user
 router
   .route("/:id/posts")
   .get((req, res, next) => {
