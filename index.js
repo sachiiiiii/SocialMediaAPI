@@ -161,6 +161,11 @@ app.get("/api", (req, res) => {
         rel: "user-comments",
         type: "GET",
       },
+      {
+        href: "/api/posts/:id/comments?userId=<VALUE>",
+        rel: "post-comments-by-user",
+        type: "GET",
+      },
     ],
   });
 });
@@ -180,6 +185,22 @@ app.get("/users/:id/comments", (req, res, next) => {
   const userComments = commentsData.filter((comment) => comment.userId === userId);
   res.json(userComments);
 });
+
+// GET /posts/:id/comments?userId=<VALUE>
+// Retrieve all comments made on a specific post by a specific user
+app.get("/posts/:id/comments", (req, res, next) => {
+  const postId = parseInt(req.params.id);
+  const userIdQuery = parseInt(req.query.userId);
+  let postComments = comments.filter((comment) => comment.postId === postId);
+  if (!isNaN(userIdQuery)) {
+    postComments = postComments.filter((comment) => comment.userId === userIdQuery);
+  }
+  res.json(postComments);
+});
+
+
+// GET /users/:id/comments?postId=<VALUE>
+// Retrieves comments made by the user with the specified id on the post with the specified postId.
 
 // 404 Middleware
 app.use((req, res, next) => {
