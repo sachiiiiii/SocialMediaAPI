@@ -49,6 +49,7 @@ apiKeys = ["perscholas", "ps-example", "hJAsknw-L198sAJD-l3kasx"];
 // to our routing at the beginning!
 app.use("/api", function (req, res, next) {
   let key = req.query["api-key"];
+  console.log("Key used: " + key)
   // Check for the absence of a key.
   if (!key) next(error(400, "API Key Required"));
 
@@ -108,6 +109,11 @@ app.get("/api", (req, res) => {
         rel: "posts",
         type: "POST",
       },
+      // {
+      //   href: "/api/posts?userId=<VALUE>",
+      //   rel: "posts-by-user",
+      //   type: "GET",
+      // },
       {
         href: "/comments",
         rel: "comments",
@@ -132,6 +138,11 @@ app.get("/api", (req, res) => {
         href: "/comments/:id",
         rel: "comment",
         type: "DELETE",
+      },
+      {
+        href: "/api/posts/:id/comments",
+        rel: "post-comments",
+        type: "GET",
       },
     ],
   });
