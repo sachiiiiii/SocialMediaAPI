@@ -63,7 +63,7 @@ app.use("/api", function (req, res, next) {
 // Use our Routes
 app.use("/api/users", users);
 app.use("/api/posts", posts);
-app.use("/comments", comments); // Use the new comments route
+app.use("/comments", comments); // Mount the comments route at /comments
 
 
 // Adding some HATEOAS links.
@@ -94,6 +94,11 @@ app.get("/api", (req, res) => {
         type: "POST",
       },
       {
+        href: "/api/users/:id/posts",
+        rel: "user-posts",
+        type: "GET",
+      },
+      {
         href: "api/posts",
         rel: "posts",
         type: "GET",
@@ -102,6 +107,31 @@ app.get("/api", (req, res) => {
         href: "api/posts",
         rel: "posts",
         type: "POST",
+      },
+      {
+        href: "/comments",
+        rel: "comments",
+        type: "GET",
+      },
+      {
+        href: "/comments",
+        rel: "comments",
+        type: "POST",
+      },
+      {
+        href: "/comments/:id",
+        rel: "comment",
+        type: "GET",
+      },
+      {
+        href: "/comments/:id",
+        rel: "comment",
+        type: "PATCH",
+      },
+      {
+        href: "/comments/:id",
+        rel: "comment",
+        type: "DELETE",
       },
     ],
   });
