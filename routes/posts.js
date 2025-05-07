@@ -8,14 +8,14 @@ router
   .route("/")
   .get((req, res) => {
     // GET /posts?userId=<VALUE>
-    // Retrieve all posts by a user with the specified postId.
+    // Retrieve all posts by a specific user
     // If userId query parameter present, filter posts
-    // if (req.query.userId) {
-    //   const userId = parseInt(req.query.userId);
-    //   console.log(req.query.userId)
-    //   const userPosts = posts.filter((post) => post.userId === userId);
-    //   return res.json(userPosts);
-    // }
+    if (req.query.userId) {
+      const userId = parseInt(req.query.userId);
+      console.log(req.query.userId)
+      const userPosts = posts.filter((post) => post.userId === userId);
+      return res.json(userPosts);
+    }
     // Otherwise, return all posts
     const links = [
       {
